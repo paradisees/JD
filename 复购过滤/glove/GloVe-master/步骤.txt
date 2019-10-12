@@ -1,0 +1,14 @@
+make
+cpµ½buildÏÂÃæ
+
+factor=20
+base_corpus_size=`expr 100 \* 1000000`
+corpus_size=`expr $factor \* $base_corpus_size`
+
+hive -e "
+set hive.cli.print.header=false;
+select regexp_replace(list_pws, ',', ' ')
+from tmpr.samples_with_cid1_by_search_clk
+where size(split(list_pws, ','))>=5 and size(split(set_pws,','))>=3
+limit $corpus_size
+;" > corpus-$factor
