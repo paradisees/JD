@@ -31,6 +31,7 @@ for url in content:
 print('图片下载开始')
 start = time.time()
 def fetch_img_func(q):
+    #多线程可以用global来改变变量，多进程不可以
     global all_num_load
     while q.qsize()>0:
         try:
